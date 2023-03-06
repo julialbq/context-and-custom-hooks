@@ -107,6 +107,7 @@ function App() {
           <EditEntryForm
             entry={entries.find((entry) => entry.id === viewState.id)}
             goToDashboard={goToDashboard}
+            onEntryDelete={() => handleEntryDeleted(viewState.id)}
             onSubmit={(entryIntent) =>
               handleEntryEdited(viewState.id, entryIntent)
             }
