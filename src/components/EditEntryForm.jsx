@@ -2,6 +2,7 @@ import { EntryForm } from "./EntryForm";
 import { translate } from "../translations/translate";
 import { LanguageContext } from "../context/LanguageContext";
 import { useContext, useEffect } from "react";
+import { useKeyPressed } from "../hooks/useKeyPressed";
 
 export const EditEntryForm = ({
   onSubmit,
@@ -11,22 +12,12 @@ export const EditEntryForm = ({
 }) => {
   const language = useContext(LanguageContext);
 
-  useEffect(() => {
-    const callback = (event) => {
-      if (event.key === "Delete") {
-        onEntryDelete();
-        goToDashboard();
-      }
-    };
-
-    window.addEventListener("keydown", callback);
-    window.addEventListener("keyup", callback);
-
-    return () => {
-      window.removeEventListener("keydown", callback);
-      window.removeEventListener("keyup", callback);
-    };
-  }, []);
+  useKeyPressed((event) => {
+    if (event.key === "Delete") {
+      onEntryDelete();
+      goToDashboard();
+    }
+  });
 
   return (
     <EntryForm

@@ -6,6 +6,7 @@ import { Input } from "./Input";
 import { SaveButton } from "./SaveButton";
 import { translate } from "../translations/translate";
 import { LanguageContext } from "../context/LanguageContext";
+import { useKeyPressed } from "../hooks/useKeyPressed";
 
 export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
   const language = useContext(LanguageContext);
@@ -24,43 +25,23 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
   const amountId = useId();
   const dateId = useId();
 
-  useEffect(() => {
-    const callback = (event) => {
-      if (event.key === "Escape") {
-        goToDashboard();
-      }
-    };
+  useKeyPressed((event) => {
+    if (event.key === "Escape") {
+      goToDashboard();
+    }
+  });
 
-    window.addEventListener("keydown", callback);
-    window.addEventListener("keyup", callback);
+  useKeyPressed((event) => {
+    if (event.key === "Enter") {
+      const entryIntent = {
+        label,
+        amount: Number(amount),
+        date: addMinutes(new Date(date), new Date().getTimezoneOffset()),
+      };
 
-    return () => {
-      window.removeEventListener("keydown", callback);
-      window.removeEventListener("keyup", callback);
-    };
-  }, []);
-
-  useEffect(() => {
-    const callback = (event) => {
-      if (event.key === "Enter") {
-        const entryIntent = {
-          label,
-          amount: Number(amount),
-          date: addMinutes(new Date(date), new Date().getTimezoneOffset()),
-        };
-
-        onSubmit(entryIntent);
-      }
-    };
-
-    window.addEventListener("keydown", callback);
-    window.addEventListener("keyup", callback);
-
-    return () => {
-      window.removeEventListener("keydown", callback);
-      window.removeEventListener("keyup", callback);
-    };
-  }, []);
+      onSubmit(entryIntent);
+    }
+  });
 
   return (
     <>
