@@ -1,15 +1,13 @@
 import { Button } from "./Button";
 import cx from "./NewEntryButton.module.scss";
-import { translate } from "../translations/translate";
-import { useContext } from "react";
-import { LanguageContext } from "../context/LanguageContext";
+import { useTranslation } from "../hooks/useTranslation";
 
 export const NewEntryButton = ({ onClick }) => {
-  const language = useContext(LanguageContext);
+  const { t } = useTranslation();
 
   return (
     <Button className={cx.container} onClick={onClick}>
-      ➕ {translate(language, "newEntryButton")}
+      ➕ {t("newEntryButton")}
     </Button>
   );
 };

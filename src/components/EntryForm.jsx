@@ -1,15 +1,15 @@
 import { addMinutes, format } from "date-fns";
-import { useState, useId, useContext, useEffect } from "react";
+import { useState, useId } from "react";
 import { BackButton } from "./BackButton";
 import cx from "./EntryForm.module.scss";
 import { Input } from "./Input";
 import { SaveButton } from "./SaveButton";
 import { translate } from "../translations/translate";
-import { LanguageContext } from "../context/LanguageContext";
 import { useKeyPressed } from "../hooks/useKeyPressed";
+import { useTranslation } from "../hooks/useTranslation";
 
 export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
-  const language = useContext(LanguageContext);
+  const { t } = useTranslation();
 
   const initialLabel = entry?.label ?? "";
   const initialAmount = entry?.amount?.toString() ?? "";
@@ -68,7 +68,7 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
             id={labelId}
             value={label}
             onChange={(event) => setLabel(event.target.value)}
-            label={translate(language, "labelInput")}
+            label={t("labelInput")}
           />
         </div>
 
@@ -77,7 +77,7 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
             id={amountId}
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
-            label={translate(language, "amountInput")}
+            label={t("amountInput")}
           />
         </div>
 
@@ -87,7 +87,7 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
             type="date"
             value={date}
             onChange={(event) => setDate(event.target.value)}
-            label={translate(language, "dateInput")}
+            label={t("dateInput")}
           />
         </div>
 

@@ -1,14 +1,12 @@
 import { EntryForm } from "./EntryForm";
-import { translate } from "../translations/translate";
-import { LanguageContext } from "../context/LanguageContext";
-import { useContext } from "react";
+import { useTranslation } from "../hooks/useTranslation";
 
 export const NewEntryForm = ({ onSubmit, goToDashboard }) => {
-  const language = useContext(LanguageContext);
+  const { t } = useTranslation();
 
   return (
     <EntryForm
-      title={translate(language, "newEntryFormTitle")}
+      title={t("newEntryFormTitle")}
       goToDashboard={goToDashboard}
       onSubmit={onSubmit}
     />

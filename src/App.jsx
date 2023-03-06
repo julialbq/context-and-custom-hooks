@@ -84,7 +84,10 @@ function App() {
 
   return (
     <LanguageContext.Provider value={language}>
-      <Header onLanguageChanged={(language) => setLanguage(language)} />
+      <Header
+        language={language}
+        onLanguageChanged={(language) => setLanguage(language)}
+      />
 
       <main className={cx.main}>
         {viewState.name === "Dashboard" && (
