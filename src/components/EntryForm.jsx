@@ -1,5 +1,5 @@
 import { addMinutes, format } from "date-fns";
-import { useState, useId, useContext } from "react";
+import { useState, useId, useContext, useEffect } from "react";
 import { BackButton } from "./BackButton";
 import cx from "./EntryForm.module.scss";
 import { Input } from "./Input";
@@ -23,6 +23,20 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
   const labelId = useId();
   const amountId = useId();
   const dateId = useId();
+
+  useEffect(() => {
+    const callback = (event) => {
+      if (event.key === "Escape") {
+        goToDashboard();
+      }
+    };
+
+    window.addEventListener("keydown", callback);
+
+    return () => {
+      window.removeEventListener("keydown", callback);
+    };
+  }, []);
 
   return (
     <>
