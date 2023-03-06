@@ -1,18 +1,15 @@
 import { addMinutes, format } from "date-fns";
-import { useState, useId } from "react";
+import { useState, useId, useContext } from "react";
 import { BackButton } from "./BackButton";
 import cx from "./EntryForm.module.scss";
 import { Input } from "./Input";
 import { SaveButton } from "./SaveButton";
 import { translate } from "../translations/translate";
+import { LanguageContext } from "../context/LanguageContext";
 
-export const EntryForm = ({
-  title,
-  goToDashboard,
-  onSubmit,
-  entry,
-  language,
-}) => {
+export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
+  const language = useContext(LanguageContext);
+
   const initialLabel = entry?.label ?? "";
   const initialAmount = entry?.amount?.toString() ?? "";
   const initialDate = entry
@@ -76,7 +73,7 @@ export const EntryForm = ({
         </div>
 
         <div className={cx.saveButtonContainer}>
-          <SaveButton language={language} />
+          <SaveButton />
         </div>
       </form>
     </>

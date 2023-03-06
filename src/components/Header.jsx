@@ -1,7 +1,11 @@
 import cx from "./Header.module.scss";
 import { translate } from "../translations/translate";
+import { useContext } from "react";
+import { LanguageContext } from "../context/LanguageContext";
 
-export const Header = ({ language, onLanguageChanged }) => {
+export const Header = ({ onLanguageChanged }) => {
+  const language = useContext(LanguageContext);
+
   return (
     <header className={cx.container}>
       <h1 className={cx.title}>{translate(language, "appTitle")}</h1>
