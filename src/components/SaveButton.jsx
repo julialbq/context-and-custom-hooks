@@ -1,10 +1,11 @@
 import { Button } from "./Button";
 import cx from "./SaveButton.module.scss";
+import { translate } from "../translations/translate";
 
-export const SaveButton = () => {
+export const SaveButton = ({ language }) => {
   return (
     <Button className={cx.button} type="submit">
-      Save
+      {translate(language, "saveButton")}
     </Button>
   );
 };

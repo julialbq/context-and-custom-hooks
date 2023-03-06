@@ -1,11 +1,13 @@
 import { EntryForm } from "./EntryForm";
+import { translate } from "../translations/translate";
 
-export const NewEntryForm = ({ onSubmit, goToDashboard }) => {
+export const NewEntryForm = ({ onSubmit, goToDashboard, language }) => {
   return (
     <EntryForm
-      title="New Entry"
+      title={translate(language, "newEntryFormTitle")}
       goToDashboard={goToDashboard}
       onSubmit={onSubmit}
+      language={language}
     />
   );
 };
