@@ -6,8 +6,8 @@ import cx from "./App.module.scss";
 import { NewEntryForm } from "./components/NewEntryForm";
 import { EditEntryForm } from "./components/EditEntryForm";
 import { entriesStorage } from "./infrastructure/entriesStorage";
-import { LanguageContext } from "./context/LanguageContext";
 import { ViewStateProvider } from "./context/ViewStateProvider";
+import { LanguageProvider } from "./context/LanguageProvider";
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -90,37 +90,34 @@ function App() {
         onLanguageChanged={(language) => setLanguage(language)}
       />
       <ViewStateProvider>
-        <main className={cx.main}>
-          {viewState.name === "Dashboard" && (
+      <main className={cx.main}>
+        {viewState.name === "Dashboard" && (
             <Dashboard
               entries={entries}
               onEntryEdit={goToEditEntry}
               onEntryDelete={handleEntryDeleted}
               onEntryNew={goToNewEntry}
             />
-          )}
+        )}
 
-          {viewState.name === "New Entry" && (
+        {viewState.name === "New Entry" && (
             <NewEntryForm
               onSubmit={handleNewEntrySubmitted}
               goToDashboard={goToDashboard}
             />
-          )}
+        )}
 
-          {viewState.name === "Edit Entry" && (
-            <EditEntryForm
-              entry={entries.find((entry) => entry.id === viewState.id)}
-              goToDashboard={goToDashboard}
-              onEntryDelete={() => handleEntryDeleted(viewState.id)}
-              onSubmit={(entryIntent) =>
-                handleEntryEdited(viewState.id, entryIntent)
-              }
-            />
-          )}
-        </main>
+        {viewState.name === "Edit Entry" && (
+          <EditEntryForm
+            entry={entries.find((entry) => entry.id === viewState.id)}
+            onEntryDelete={() => handleEntryDeleted(viewState.id)}
+            onSubmit={(entryIntent) =>
+              handleEntryEdited(viewState.id, entryIntent)
+            }
+          />
+        )}
+      </main>
       </ViewStateProvider>
     </LanguageContext.Provider>
   );
 }
-
-export default App;
