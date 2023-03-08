@@ -117,7 +117,16 @@ function App() {
           />
         )}
       </main>
+    </>
+  );
+}
+
+export default function AppWithProviders() {
+  return (
+    <LanguageProvider>
+      <ViewStateProvider>
+        <App />
       </ViewStateProvider>
-    </LanguageContext.Provider>
+    </LanguageProvider>
   );
 }
