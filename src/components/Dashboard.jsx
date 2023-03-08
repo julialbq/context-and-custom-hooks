@@ -2,8 +2,10 @@ import { NewEntryButton } from "./NewEntryButton";
 import cx from "./Dashboard.module.scss";
 import { DashboardEntry } from "./DashboardEntry";
 import { isAfter } from "date-fns";
+import { useEntries } from "../hooks/useEntries";
 
-export const Dashboard = ({ entries, onEntryDelete }) => {
+export const Dashboard = () => {
+  const { entries } = useEntries();
   const sortedEntries = entries.sort((first, second) =>
     isAfter(second.date, first.date) ? -1 : 1
   );
@@ -16,11 +18,7 @@ export const Dashboard = ({ entries, onEntryDelete }) => {
 
       <ul className={cx.entryList}>
         {sortedEntries.map((entry) => (
-          <DashboardEntry
-            key={entry.id}
-            entry={entry}
-            onDelete={() => onEntryDelete(entry.id)}
-          />
+          <DashboardEntry key={entry.id} entry={entry} />
         ))}
       </ul>
     </div>

@@ -2,14 +2,16 @@ import { EntryForm } from "./EntryForm";
 import { useKeyPressed } from "../hooks/useKeyPressed";
 import { useTranslation } from "../hooks/useTranslation";
 import { useViewState } from "../hooks/useViewState";
+import { useEntries } from "../hooks/useEntries";
 
-export const EditEntryForm = ({ onSubmit, entry, onEntryDelete }) => {
+export const EditEntryForm = ({ entry}) => {
   const { t } = useTranslation();
-  const { goToDashboard } = useViewState();
+  const { viewState, goToDashboard } = useViewState();
+  const { handleEntryDeleted, handleEntryEdited } = useEntries();
 
   useKeyPressed((event) => {
     if (event.key === "Delete") {
-      onEntryDelete();
+      handleEntryDeleted(viewState.id);
       goToDashboard();
     }
   });
@@ -18,7 +20,8 @@ export const EditEntryForm = ({ onSubmit, entry, onEntryDelete }) => {
     <EntryForm
       title={t("editEntryFormTitle")}
       entry={entry}
-      onSubmit={onSubmit}
+      onSubmit={(entryIntent) =>
+        handleEntryEdited(viewState.id, entryIntent)}
     />
   );
 };
