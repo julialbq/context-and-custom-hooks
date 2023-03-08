@@ -6,30 +6,12 @@ import cx from "./App.module.scss";
 import { NewEntryForm } from "./components/NewEntryForm";
 import { EditEntryForm } from "./components/EditEntryForm";
 import { entriesStorage } from "./infrastructure/entriesStorage";
-import { LanguageContext } from "./context/LanguageContext";
+import { ViewStateProvider } from "./context/ViewStateProvider";
+import { useViewState } from "./hooks/useViewState";
+import { LanguageProvider } from "./context/LanguageProvider";
 
 function App() {
-  const [language, setLanguage] = useState("en");
-
-  const [viewState, setViewState] = useState({
-    name: "Dashboard",
-  });
-
-  const goToDashboard = () =>
-    setViewState({
-      name: "Dashboard",
-    });
-
-  const goToNewEntry = () =>
-    setViewState({
-      name: "New Entry",
-    });
-
-  const goToEditEntry = (id) =>
-    setViewState({
-      name: "Edit Entry",
-      id,
-    });
+  const { viewState, goToDashboard } = useViewState();
 
   const [entries, setEntries] = useState(entriesStorage.retrieve());
 
@@ -83,33 +65,20 @@ function App() {
   };
 
   return (
-    <LanguageContext.Provider value={language}>
-      <Header
-        language={language}
-        onLanguageChanged={(language) => setLanguage(language)}
-      />
-
+    <>
+      <Header />
       <main className={cx.main}>
         {viewState.name === "Dashboard" && (
-          <Dashboard
-            entries={entries}
-            onEntryEdit={goToEditEntry}
-            onEntryDelete={handleEntryDeleted}
-            onEntryNew={goToNewEntry}
-          />
+          <Dashboard entries={entries} onEntryDelete={handleEntryDeleted} />
         )}
 
         {viewState.name === "New Entry" && (
-          <NewEntryForm
-            onSubmit={handleNewEntrySubmitted}
-            goToDashboard={goToDashboard}
-          />
+          <NewEntryForm onSubmit={handleNewEntrySubmitted} />
         )}
 
         {viewState.name === "Edit Entry" && (
           <EditEntryForm
             entry={entries.find((entry) => entry.id === viewState.id)}
-            goToDashboard={goToDashboard}
             onEntryDelete={() => handleEntryDeleted(viewState.id)}
             onSubmit={(entryIntent) =>
               handleEntryEdited(viewState.id, entryIntent)
@@ -117,8 +86,16 @@ function App() {
           />
         )}
       </main>
-    </LanguageContext.Provider>
+    </>
   );
 }
 
-export default App;
+export default function AppWithProviders() {
+  return (
+    <LanguageProvider>
+      <ViewStateProvider>
+        <App />
+      </ViewStateProvider>
+    </LanguageProvider>
+  );
+}

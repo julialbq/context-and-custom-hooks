@@ -3,11 +3,13 @@ import { translate } from "../translations/translate";
 import { LanguageContext } from "../context/LanguageContext";
 
 export const useTranslation = () => {
-  const language = useContext(LanguageContext);
+  const value = useContext(LanguageContext);
 
-  if (language === undefined) {
+  if (value === undefined) {
     throw new Error("You forgot the LanguageContext.Provider!");
   }
+
+  const { language, setLanguage } = value;
 
   const t = (key) => translate(language, key);
   const formatNumber = Intl.NumberFormat(language, {
@@ -16,5 +18,5 @@ export const useTranslation = () => {
   }).format;
   const formatDate = Intl.DateTimeFormat(language).format;
 
-  return { t, formatNumber, formatDate };
+  return { language, changeLanguage: setLanguage, t, formatNumber, formatDate };
 };
