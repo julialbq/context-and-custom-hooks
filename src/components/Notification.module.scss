@@ -1,0 +1,30 @@
+.container {
+  width: 150px;
+  background-color: var(--highlight-color);
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0, 0.3);
+  text-align: center;
+
+  position: fixed;
+  top: 100px;
+  right: 10px;
+
+  animation: appear 0.8s;
+}
+
+.empty {
+  display: none;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

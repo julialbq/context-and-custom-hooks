@@ -7,4 +7,7 @@ export const enTranslations = {
   amountInput: "Amount",
   dateInput: "Date",
   saveButton: "Save",
+  entryAdded: "Entry added",
+  entryEdited: "Entry edited",
+  entryDeleted: "Entry deleted",
 };
