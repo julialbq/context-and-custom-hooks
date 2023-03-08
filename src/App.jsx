@@ -9,6 +9,7 @@ import { useViewState } from "./hooks/useViewState";
 import { LanguageProvider } from "./context/LanguageProvider";
 import { EntriesProvider } from "./context/EntriesProvider";
 import { NotificationProvider } from "./context/NotificationProvider";
+import { Notification } from "./components/Notification";
 
 function App() {
   const { viewState } = useViewState();
@@ -23,6 +24,7 @@ function App() {
 
         {viewState.name === "Edit Entry" && <EditEntryForm />}
       </main>
+      <Notification />
     </>
   );
 }
@@ -31,11 +33,11 @@ export default function AppWithProviders() {
   return (
     <LanguageProvider>
       <ViewStateProvider>
-        <EntriesProvider>
-          <NotificationProvider>
+        <NotificationProvider>
+          <EntriesProvider>
             <App />
-          </NotificationProvider>
-        </EntriesProvider>
+          </EntriesProvider>
+        </NotificationProvider>
       </ViewStateProvider>
     </LanguageProvider>
   );
