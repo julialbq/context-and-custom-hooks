@@ -9,6 +9,7 @@ import { entriesStorage } from "./infrastructure/entriesStorage";
 import { ViewStateProvider } from "./context/ViewStateProvider";
 import { useViewState } from "./hooks/useViewState";
 import { LanguageProvider } from "./context/LanguageProvider";
+import { EntriesProvider } from "./context/EntriesProvider";
 
 function App() {
   const { viewState, goToDashboard } = useViewState();
@@ -94,7 +95,9 @@ export default function AppWithProviders() {
   return (
     <LanguageProvider>
       <ViewStateProvider>
-        <App />
+        <EntriesProvider>
+          <App />
+        </EntriesProvider>
       </ViewStateProvider>
     </LanguageProvider>
   );
