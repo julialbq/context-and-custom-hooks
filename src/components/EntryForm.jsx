@@ -42,6 +42,7 @@ export const EntryForm = ({ title, onSubmit, entry }) => {
       };
 
       onSubmit(entryIntent);
+      goToDashboard()
     }
   });
 
@@ -61,6 +62,7 @@ export const EntryForm = ({ title, onSubmit, entry }) => {
           };
 
           onSubmit(entryIntent);
+          goToDashboard()
         }}
       >
         <h2 className={cx.title}>{title}</h2>
