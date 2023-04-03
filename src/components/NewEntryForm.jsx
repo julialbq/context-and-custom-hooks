@@ -4,8 +4,8 @@ import { useEntries } from "../hooks/useEntries";
 
 export const NewEntryForm = () => {
   const { t } = useTranslation();
-  const { handleNewEntrySubmitted} = useEntries()
+  const { createEntry} = useEntries()
 
 
-  return <EntryForm title={t("newEntryFormTitle")} onSubmit={handleNewEntrySubmitted} />;
+  return <EntryForm title={t("newEntryFormTitle")} onSubmit={createEntry} />;
 };

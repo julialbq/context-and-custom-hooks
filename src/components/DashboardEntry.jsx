@@ -5,7 +5,7 @@ import { useViewState } from "../hooks/useViewState";
 import { useEntries } from "../hooks/useEntries";
 
 export const DashboardEntry = ({ entry }) => {
-  const { handleEntryDeleted } = useEntries();
+  const { deleteEntry } = useEntries();
   const { label, date, amount } = entry;
   const { formatDate, formatNumber } = useTranslation();
   const { goToEditEntry } = useViewState();
@@ -31,7 +31,7 @@ export const DashboardEntry = ({ entry }) => {
 
           <Button
             className={cx.deleteButton}
-            onClick={() => handleEntryDeleted(entry.id)}
+            onClick={() => deleteEntry(entry.id)}
           >
             🗑️
           </Button>
