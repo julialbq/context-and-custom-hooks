@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { EntriesContext } from "../context/EntriesContext";
 import { entriesStorage } from "../infrastructure/entriesStorage";
+import { useNotification } from "./useNotification";
 
 export const useEntries = () => {
   const value = useContext(EntriesContext);
+  const {showNotification} = useNotification()
 
   if (value === undefined) {
     throw new Error("You forgot the ViewStateProvider!");
@@ -23,6 +25,8 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
+      showNotification("entryAdded")
+
       return updatedEntries;
     });
   };
@@ -32,6 +36,8 @@ export const useEntries = () => {
       const updatedEntries = entries.filter((entry) => entry.id !== id);
 
       entriesStorage.store(updatedEntries);
+
+      showNotification("entryDeleted")
 
       return updatedEntries;
     });
@@ -51,6 +57,8 @@ export const useEntries = () => {
       updatedEntries[updatedEntryIndex] = updatedEntry;
 
       entriesStorage.store(updatedEntries);
+
+      showNotification("entryEdited")
 
       return updatedEntries;
     });

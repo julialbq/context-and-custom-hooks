@@ -24,6 +24,7 @@ function App() {
 
         {viewState.name === "Edit Entry" && <EditEntryForm entry={entries.find((entry) => entry.id === viewState.id)} />}
       </main>
+      <Notification />
     </>
   );
 }
@@ -32,9 +33,11 @@ export default function AppWithProviders() {
   return (
     <LanguageProvider>
       <ViewStateProvider>
-        <EntriesProvider>
-          <App />
-        </EntriesProvider>
+        <NotificationProvider>
+          <EntriesProvider>
+            <App />
+          </EntriesProvider>
+        </NotificationProvider>
       </ViewStateProvider>
     </LanguageProvider>
   );
