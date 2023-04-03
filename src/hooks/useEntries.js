@@ -11,7 +11,7 @@ export const useEntries = () => {
 
   const { entries, setEntries } = value;
 
-  const handleNewEntrySubmitted = (entryIntent) => {
+  const createEntry = (entryIntent) => {
     setEntries((entries) => {
       const updatedEntries = [
         ...entries,
@@ -27,7 +27,7 @@ export const useEntries = () => {
     });
   };
 
-  const handleEntryDeleted = (id) => {
+  const deleteEntry = (id) => {
     setEntries((entries) => {
       const updatedEntries = entries.filter((entry) => entry.id !== id);
 
@@ -37,7 +37,7 @@ export const useEntries = () => {
     });
   };
 
-  const handleEntryEdited = (id, entryIntent) => {
+  const editEntryed = (id, entryIntent) => {
     const updatedEntry = {
       id,
       ...entryIntent,
@@ -58,8 +58,8 @@ export const useEntries = () => {
 
   return {
     entries,
-    handleNewEntrySubmitted,
-    handleEntryDeleted,
-    handleEntryEdited,
+    createEntry,
+    deleteEntry,
+    editEntryed,
   };
 };

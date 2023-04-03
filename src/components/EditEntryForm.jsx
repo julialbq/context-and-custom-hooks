@@ -7,11 +7,11 @@ import { useEntries } from "../hooks/useEntries";
 export const EditEntryForm = ({ entry}) => {
   const { t } = useTranslation();
   const { viewState, goToDashboard } = useViewState();
-  const { handleEntryDeleted, handleEntryEdited } = useEntries();
+  const { deleteEntry, editEntryed } = useEntries();
 
   useKeyPressed((event) => {
     if (event.key === "Delete") {
-      handleEntryDeleted(viewState.id);
+      deleteEntry(viewState.id);
       goToDashboard();
     }
   });
@@ -21,7 +21,7 @@ export const EditEntryForm = ({ entry}) => {
       title={t("editEntryFormTitle")}
       entry={entry}
       onSubmit={(entryIntent) =>
-        handleEntryEdited(viewState.id, entryIntent)}
+        editEntryed(viewState.id, entryIntent)}
     />
   );
 };
