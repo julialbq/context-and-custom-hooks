@@ -8,9 +8,11 @@ import { ViewStateProvider } from "./context/ViewStateProvider";
 import { useViewState } from "./hooks/useViewState";
 import { LanguageProvider } from "./context/LanguageProvider";
 import { EntriesProvider } from "./context/EntriesProvider";
+import { useEntries } from "./hooks/useEntries";
 
 function App() {
   const { viewState } = useViewState();
+  const {entries} = useEntries()
 
   return (
     <>
@@ -20,7 +22,7 @@ function App() {
 
         {viewState.name === "New Entry" && <NewEntryForm />}
 
-        {viewState.name === "Edit Entry" && <EditEntryForm />}
+        {viewState.name === "Edit Entry" && <EditEntryForm entry={entries.find((entry) => entry.id === viewState.id)} />}
       </main>
     </>
   );
