@@ -25,7 +25,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      changeNotification("Entry added")
+      changeNotification("entryAdded")
 
       return updatedEntries;
     });
@@ -37,7 +37,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      changeNotification("Entry deleted")
+      changeNotification("entryDeleted")
 
       return updatedEntries;
     });
@@ -58,7 +58,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      changeNotification("Entry edited")
+      changeNotification("entryEdited")
 
       return updatedEntries;
     });
