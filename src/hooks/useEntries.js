@@ -5,7 +5,7 @@ import { useNotification } from "./useNotification";
 
 export const useEntries = () => {
   const value = useContext(EntriesContext);
-  const {showNotification} = useNotification()
+  const {changeNotification} = useNotification()
 
   if (value === undefined) {
     throw new Error("You forgot the ViewStateProvider!");
@@ -13,7 +13,7 @@ export const useEntries = () => {
 
   const { entries, setEntries } = value;
 
-  const createEntry = (entryIntent) => {
+  const handleNewEntrySubmitted = (entryIntent) => {
     setEntries((entries) => {
       const updatedEntries = [
         ...entries,
@@ -25,25 +25,25 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      showNotification("entryAdded")
+      changeNotification("Entry added")
 
       return updatedEntries;
     });
   };
 
-  const deleteEntry = (id) => {
+  const handleEntryDeleted = (id) => {
     setEntries((entries) => {
       const updatedEntries = entries.filter((entry) => entry.id !== id);
 
       entriesStorage.store(updatedEntries);
 
-      showNotification("entryDeleted")
+      changeNotification("Entry deleted")
 
       return updatedEntries;
     });
   };
 
-  const editEntryed = (id, entryIntent) => {
+  const handleEntryEdited = (id, entryIntent) => {
     const updatedEntry = {
       id,
       ...entryIntent,
@@ -58,7 +58,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      showNotification("entryEdited")
+      changeNotification("Entry edited")
 
       return updatedEntries;
     });
@@ -66,8 +66,8 @@ export const useEntries = () => {
 
   return {
     entries,
-    createEntry,
-    deleteEntry,
-    editEntryed,
+    handleNewEntrySubmitted,
+    handleEntryDeleted,
+    handleEntryEdited,
   };
 };

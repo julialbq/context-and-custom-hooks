@@ -4,14 +4,14 @@ import { useTranslation } from "../hooks/useTranslation";
 import { useViewState } from "../hooks/useViewState";
 import { useEntries } from "../hooks/useEntries";
 
-export const EditEntryForm = ({ entry }) => {
+export const EditEntryForm = ({ entry}) => {
   const { t } = useTranslation();
   const { viewState, goToDashboard } = useViewState();
-  const { deleteEntry, editEntryed } = useEntries();
+  const { handleEntryDeleted, handleEntryEdited } = useEntries();
 
   useKeyPressed((event) => {
     if (event.key === "Delete") {
-      deleteEntry(viewState.id);
+      handleEntryDeleted(viewState.id);
       goToDashboard();
     }
   });
@@ -21,7 +21,7 @@ export const EditEntryForm = ({ entry }) => {
       title={t("editEntryFormTitle")}
       entry={entry}
       onSubmit={(entryIntent) =>
-        editEntryed(viewState.id, entryIntent)}
+        handleEntryEdited(viewState.id, entryIntent)}
     />
   );
 };

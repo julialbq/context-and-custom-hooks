@@ -4,24 +4,28 @@ import { useEffect } from "react";
 import { useTranslation } from "../hooks/useTranslation";
 
 export const Notification = () => {
-  const { notification, hideNotification } = useNotification();
+  const { notification, changeNotification } = useNotification();
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (notification === "" || notification === undefined ) {
-      return 
+    notification === "Entry added" && changeNotification(t("entryAdded"));
+
+    notification === "Entry edited" && changeNotification(t("entryEdited"));
+
+    notification === "Entry deleted" && changeNotification(t("entryDeleted"));
+  }, [notification]);
+
+  useEffect(() => {
+    if (notification !== "") {
+      setTimeout(() => {
+        changeNotification("");
+      }, 2500);
     }
-
-    const timeoutId = setTimeout(() => {
-      hideNotification("");
-    }, 2500);
-
-    return () => clearTimeout(timeoutId)
   }, [notification]);
 
   return (
-    <div className={`${cx.container} ${notification === "" || notification === undefined ? cx.empty : ""}`}>
-      <p>{t(notification)}</p>
+    <div className={`${cx.container} ${notification === "" ? cx.empty : ""}`}>
+      <p>{notification}</p>
     </div>
   );
 };
