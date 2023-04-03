@@ -14,9 +14,9 @@ export const useNotification = () => {
     setNotification("")
   }
 
-  const changeNotification = (newNotification) => {
+  const showNotification = (newNotification) => {
     setNotification(newNotification)
   }
 
-  return {notification, changeNotification, hideNotification }
+  return {notification, showNotification, hideNotification }
 }

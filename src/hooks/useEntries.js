@@ -5,7 +5,7 @@ import { useNotification } from "./useNotification";
 
 export const useEntries = () => {
   const value = useContext(EntriesContext);
-  const {changeNotification} = useNotification()
+  const {showNotification} = useNotification()
 
   if (value === undefined) {
     throw new Error("You forgot the ViewStateProvider!");
@@ -25,7 +25,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      changeNotification("entryAdded")
+      showNotification("entryAdded")
 
       return updatedEntries;
     });
@@ -37,7 +37,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      changeNotification("entryDeleted")
+      showNotification("entryDeleted")
 
       return updatedEntries;
     });
@@ -58,7 +58,7 @@ export const useEntries = () => {
 
       entriesStorage.store(updatedEntries);
 
-      changeNotification("entryEdited")
+      showNotification("entryEdited")
 
       return updatedEntries;
     });
