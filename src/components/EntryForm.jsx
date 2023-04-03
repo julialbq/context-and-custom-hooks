@@ -4,7 +4,6 @@ import { BackButton } from "./BackButton";
 import cx from "./EntryForm.module.scss";
 import { Input } from "./Input";
 import { SaveButton } from "./SaveButton";
-import { translate } from "../translations/translate";
 import { useKeyPressed } from "../hooks/useKeyPressed";
 import { useTranslation } from "../hooks/useTranslation";
 import { useViewState } from "../hooks/useViewState";
@@ -42,6 +41,7 @@ export const EntryForm = ({ title, onSubmit, entry }) => {
       };
 
       onSubmit(entryIntent);
+      goToDashboard()
     }
   });
 
@@ -61,6 +61,7 @@ export const EntryForm = ({ title, onSubmit, entry }) => {
           };
 
           onSubmit(entryIntent);
+          goToDashboard()
         }}
       >
         <h2 className={cx.title}>{title}</h2>
