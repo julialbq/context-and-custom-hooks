@@ -1,8 +1,8 @@
 import cx from "./Header.module.scss";
 import { useTranslation } from "../hooks/useTranslation";
 
-export const Header = ({ onLanguageChanged, language }) => {
-  const { t } = useTranslation();
+export const Header = () => {
+  const { language, changeLanguage, t } = useTranslation();
 
   return (
     <header className={cx.container}>
@@ -10,7 +10,7 @@ export const Header = ({ onLanguageChanged, language }) => {
 
       <select
         value={language}
-        onChange={(event) => onLanguageChanged(event.target.value)}
+        onChange={(event) => changeLanguage(event.target.value)}
         className={cx.languageSelector}
       >
         <option value="en">EN</option>

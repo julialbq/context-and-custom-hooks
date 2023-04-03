@@ -4,12 +4,13 @@ import { BackButton } from "./BackButton";
 import cx from "./EntryForm.module.scss";
 import { Input } from "./Input";
 import { SaveButton } from "./SaveButton";
-import { translate } from "../translations/translate";
 import { useKeyPressed } from "../hooks/useKeyPressed";
 import { useTranslation } from "../hooks/useTranslation";
+import { useViewState } from "../hooks/useViewState";
 
-export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
+export const EntryForm = ({ title, onSubmit, entry }) => {
   const { t } = useTranslation();
+  const { goToDashboard } = useViewState();
 
   const initialLabel = entry?.label ?? "";
   const initialAmount = entry?.amount?.toString() ?? "";
@@ -40,12 +41,13 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
       };
 
       onSubmit(entryIntent);
+      goToDashboard()
     }
   });
 
   return (
     <>
-      <BackButton onClick={goToDashboard} />
+      <BackButton onClick={() => goToDashboard()} />
 
       <form
         className={cx.form}
@@ -59,6 +61,7 @@ export const EntryForm = ({ title, goToDashboard, onSubmit, entry }) => {
           };
 
           onSubmit(entryIntent);
+          goToDashboard()
         }}
       >
         <h2 className={cx.title}>{title}</h2>
